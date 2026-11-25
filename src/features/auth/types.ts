@@ -12,13 +12,12 @@ export type AuthUser = {
 }
 
 export type LoginCredentials = {
-  identifier: string
+  email: string
   password: string
-  rememberMe: boolean
 }
 
 export type ForgotPasswordRequest = {
-  identifier: string
+  email: string
 }
 
 export type AuthContextValue = {

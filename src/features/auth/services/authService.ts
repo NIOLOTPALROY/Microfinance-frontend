@@ -19,34 +19,43 @@ export class AuthApiError extends Error {
   }
 }
 
-function isStringArray(value: unknown): value is string[] {
-  return Array.isArray(value) && value.every((item) => typeof item === 'string')
-}
-
-function isAuthUser(value: unknown): value is AuthUser {
-  if (typeof value !== 'object' || value === null) return false
-  if (!('id' in value) || typeof value.id !== 'string' || value.id.length === 0) return false
-  if (!('displayName' in value) || typeof value.displayName !== 'string' || value.displayName.length === 0) return false
-  if (!('roles' in value) || !isStringArray(value.roles)) return false
-  if (!('permissions' in value) || !isStringArray(value.permissions)) return false
-  if (!('branchIds' in value) || !isStringArray(value.branchIds)) return false
-  if ('email' in value && value.email !== undefined && typeof value.email !== 'string') return false
-  if ('mobile' in value && value.mobile !== undefined && typeof value.mobile !== 'string') return false
-  if ('lastLoginAt' in value && value.lastLoginAt !== undefined && typeof value.lastLoginAt !== 'string') return false
-  return true
-}
-
 function readUser(data: unknown): AuthUser {
-  if (
-    typeof data === 'object'
-    && data !== null
-    && 'user' in data
-    && isAuthUser(data.user)
-  ) {
-    return data.user
+  if (typeof data !== 'object' || data === null || !('user' in data)) {
+    throw new AuthApiError('The authentication API returned an unsupported user response.')
   }
 
-  throw new AuthApiError('The authentication API returned an unsupported user response. Check VITE_API_BASE_URL and the approved response contract.')
+  const user: unknown = data.user
+  if (
+    typeof user !== 'object'
+    || user === null
+    || !('id' in user)
+    || typeof user.id !== 'string'
+    || user.id.length === 0
+    || !('name' in user)
+    || typeof user.name !== 'string'
+    || user.name.length === 0
+    || !('role' in user)
+    || typeof user.role !== 'string'
+    || !('permissions' in user)
+    || !isStringArray(user.permissions)
+  ) {
+    throw new AuthApiError('The authentication API returned an unsupported user response.')
+  }
+
+  const email = 'email' in user && typeof user.email === 'string' ? user.email : undefined
+
+  return {
+    id: user.id,
+    displayName: user.name,
+    ...(email === undefined ? {} : { email }),
+    roles: [user.role],
+    permissions: user.permissions,
+    branchIds: [],
+  }
+}
+
+function isStringArray(value: unknown): value is string[] {
+  return Array.isArray(value) && value.every((item) => typeof item === 'string')
 }
 
 function assertJsonResponse(response: AxiosResponse<unknown>, operation: string) {
@@ -68,6 +77,8 @@ function normalizeError(error: unknown): AuthApiError {
     if (typeof responseData === 'object' && responseData !== null) {
       if ('message' in responseData && typeof responseData.message === 'string') {
         responseMessage = responseData.message
+      } else if ('error' in responseData && typeof responseData.error === 'string') {
+        responseMessage = responseData.error
       }
       if ('code' in responseData && typeof responseData.code === 'string') {
         responseCode = responseData.code
@@ -110,45 +121,32 @@ async function request<T>(operation: () => Promise<T>): Promise<T> {
 const authService = {
   login(credentials: LoginCredentials): Promise<AuthUser> {
     return request(async () => {
-      const response = await apiClient.post<unknown>('/api/auth/login', credentials)
+      const response = await apiClient.post<unknown>('/auth/login', credentials)
       return readUser(response.data)
     })
   },
 
   logout(): Promise<void> {
     return request(async () => {
-      const response = await apiClient.post<unknown>('/api/auth/logout')
+      const response = await apiClient.post<unknown>('/auth/logout')
       if (response.status !== 204) assertJsonResponse(response, 'logout')
     })
   },
 
   getCurrentUser(): Promise<AuthUser> {
     return request(async () => {
-      const response = await apiClient.get<unknown>('/api/auth/me')
+      const response = await apiClient.get<unknown>('/auth/me')
       return readUser(response.data)
     })
   },
 
   refreshToken(): Promise<AuthUser> {
-    return request(async () => {
-      const response = await apiClient.post<unknown>('/api/auth/refresh')
-      return readUser(response.data)
-    })
+    return Promise.reject(new AuthApiError('Session refresh is not available yet.'))
   },
 
-  forgotPassword(payload: ForgotPasswordRequest): Promise<void> {
-    return request(async () => {
-      const response = await apiClient.post<unknown>('/api/auth/forgot-password', payload)
-      assertJsonResponse(response, 'password recovery')
-      if (
-        typeof response.data !== 'object'
-        || response.data === null
-        || !('message' in response.data)
-        || typeof response.data.message !== 'string'
-      ) {
-        throw new AuthApiError('The authentication API returned an unsupported password recovery response.')
-      }
-    })
+  forgotPassword(_payload: ForgotPasswordRequest): Promise<void> {
+    void _payload
+    return Promise.reject(new AuthApiError('Password recovery is not available yet.'))
   },
 }
 
