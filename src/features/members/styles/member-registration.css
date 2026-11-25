@@ -1,0 +1,373 @@
+.micro-content--registration {
+  display: block;
+  overflow: auto;
+  padding: 22px clamp(14px, 2.4vw, 32px) 28px;
+  scrollbar-color: #b7c8e3 transparent;
+  scrollbar-width: thin;
+}
+
+.member-registration {
+  width: min(1120px, 100%);
+  margin: 0 auto;
+  color: #172d50;
+}
+
+.member-registration__topline,
+.member-registration__office-label,
+.member-registration__header,
+.member-registration__notice,
+.member-registration__success,
+.member-registration__actions {
+  display: flex;
+  align-items: center;
+}
+
+.member-registration__topline {
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.member-registration__back {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 8px 0;
+  border: 0;
+  background: transparent;
+  color: #1768ce;
+  cursor: pointer;
+  font: inherit;
+  font-size: 13px;
+  font-weight: 650;
+}
+
+.member-registration__office-label {
+  gap: 6px;
+  color: #70809a;
+  font-size: 11px;
+}
+
+.member-registration__header {
+  position: relative;
+  gap: 14px;
+  margin-bottom: 17px;
+}
+
+.member-registration__icon {
+  display: grid;
+  width: 48px;
+  height: 48px;
+  flex: 0 0 48px;
+  place-items: center;
+  border-radius: 14px;
+  background: #e4f0ff;
+  color: #176ed2;
+}
+
+.member-registration__header p {
+  margin: 0 0 4px;
+  color: #6682a6;
+  font-size: 10px;
+  font-weight: 750;
+  letter-spacing: 1.1px;
+}
+
+.member-registration__header h1 {
+  margin: 0;
+  color: #132d55;
+  font-size: clamp(22px, 2.4vw, 29px);
+  letter-spacing: -.7px;
+}
+
+.member-registration__header div > span {
+  display: block;
+  margin-top: 4px;
+  color: #72819a;
+  font-size: 12px;
+}
+
+.member-registration__required {
+  margin-left: auto;
+  color: #72819a;
+  font-size: 11px;
+}
+
+.member-registration__notice,
+.member-registration__success {
+  gap: 10px;
+  margin: 0 0 16px;
+  padding: 12px 14px;
+  border: 1px solid #d5e6fb;
+  border-radius: 10px;
+  background: #f5f9ff;
+  color: #496381;
+  font-size: 11px;
+  line-height: 1.55;
+}
+
+.member-registration__notice svg,
+.member-registration__success svg {
+  flex: 0 0 auto;
+  color: #2775cb;
+}
+
+.member-registration__notice p {
+  margin: 0;
+}
+
+.member-registration__success {
+  border-color: #bce7d3;
+  background: #f0fbf5;
+  color: #216743;
+}
+
+.member-registration__success svg {
+  color: #16834b;
+}
+
+.member-registration__form {
+  display: grid;
+  gap: 14px;
+}
+
+.member-form-section {
+  min-width: 0;
+  padding: 17px 18px 19px;
+  border: 1px solid #e0e9f6;
+  border-radius: 13px;
+  background: #fff;
+  box-shadow: 0 3px 12px rgba(37, 76, 131, .045);
+}
+
+.member-form-section__heading {
+  display: flex;
+  align-items: flex-start;
+  gap: 11px;
+  margin-bottom: 15px;
+}
+
+.member-form-section__heading > span {
+  display: grid;
+  width: 30px;
+  height: 30px;
+  flex: 0 0 30px;
+  place-items: center;
+  border-radius: 9px;
+  background: #edf5ff;
+  color: #2471cb;
+  font-size: 11px;
+  font-weight: 750;
+}
+
+.member-form-section__heading h2 {
+  margin: 1px 0 0;
+  color: #1b355e;
+  font-size: 14px;
+  font-weight: 720;
+}
+
+.member-form-section__heading p {
+  margin: 4px 0 0;
+  color: #7a8aa3;
+  font-size: 10px;
+  line-height: 1.45;
+}
+
+.member-form-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px 14px;
+}
+
+.member-form-field {
+  display: grid;
+  min-width: 0;
+  gap: 6px;
+  color: #405674;
+  font-size: 11px;
+  font-weight: 620;
+}
+
+.member-form-field > span b {
+  color: #dc4c54;
+  font-weight: 700;
+}
+
+.member-form-field input,
+.member-form-field select,
+.member-form-field textarea {
+  width: 100%;
+  min-width: 0;
+  min-height: 38px;
+  padding: 8px 10px;
+  border: 1px solid #dce5f1;
+  border-radius: 8px;
+  outline: none;
+  background: #fbfdff;
+  color: #233b5d;
+  font: inherit;
+  font-size: 11px;
+  font-weight: 450;
+  transition: border-color .16s ease, box-shadow .16s ease;
+}
+
+.member-form-field input:focus,
+.member-form-field select:focus,
+.member-form-field textarea:focus {
+  border-color: #5da1ec;
+  box-shadow: 0 0 0 3px rgba(39, 120, 213, .11);
+}
+
+.member-form-field input::placeholder,
+.member-form-field textarea::placeholder {
+  color: #98a7bb;
+}
+
+.member-form-field input[readonly] {
+  background: #f2f6fb;
+  color: #75859a;
+}
+
+.member-form-field input[type="file"] {
+  padding: 6px;
+  color: #72819a;
+  font-size: 10px;
+}
+
+.member-form-field input[type="file"]::file-selector-button {
+  margin-right: 8px;
+  padding: 5px 8px;
+  border: 0;
+  border-radius: 5px;
+  background: #eaf3ff;
+  color: #2169bd;
+  cursor: pointer;
+  font: inherit;
+}
+
+.member-form-field--remarks {
+  padding: 15px 18px;
+  border: 1px solid #e0e9f6;
+  border-radius: 13px;
+  background: white;
+}
+
+.member-form-field--wide {
+  grid-column: 1 / -1;
+}
+
+.member-form-field textarea {
+  resize: vertical;
+}
+
+.member-registration__actions {
+  justify-content: flex-end;
+  gap: 9px;
+}
+
+.member-registration__reset,
+.member-registration__submit {
+  min-height: 39px;
+  padding: 0 16px;
+  border: 1px solid #d6e1ef;
+  border-radius: 8px;
+  background: #fff;
+  color: #536782;
+  cursor: pointer;
+  font: inherit;
+  font-size: 11px;
+  font-weight: 650;
+  transition: transform .16s ease, box-shadow .16s ease;
+}
+
+.member-registration__submit {
+  border-color: #176dd1;
+  background: linear-gradient(105deg, #1784ed, #145fc3);
+  color: #fff;
+  box-shadow: 0 4px 10px rgba(26, 105, 199, .2);
+}
+
+.member-registration__reset:hover,
+.member-registration__submit:hover {
+  transform: translateY(-1px);
+}
+
+.member-registration__footer {
+  padding: 14px 2px 0;
+  color: #7989a1;
+  font-size: 10px;
+  line-height: 1.5;
+}
+
+.micro-dashboard[data-theme="dark"] .member-registration {
+  color: #dce8f8;
+}
+
+.micro-dashboard[data-theme="dark"] .member-registration__header h1,
+.micro-dashboard[data-theme="dark"] .member-form-section__heading h2 {
+  color: #e4efff;
+}
+
+.micro-dashboard[data-theme="dark"] .member-form-section,
+.micro-dashboard[data-theme="dark"] .member-form-field--remarks {
+  border-color: #273c5c;
+  background: #122541;
+}
+
+.micro-dashboard[data-theme="dark"] .member-form-field {
+  color: #c4d2e6;
+}
+
+.micro-dashboard[data-theme="dark"] .member-form-field input,
+.micro-dashboard[data-theme="dark"] .member-form-field select,
+.micro-dashboard[data-theme="dark"] .member-form-field textarea {
+  border-color: #344967;
+  background: #0e1e35;
+  color: #e0ebf9;
+}
+
+@media (max-width: 950px) {
+  .member-form-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 680px) {
+  .micro-content--registration {
+    overflow: visible;
+    padding: 18px 12px 25px;
+  }
+
+  .member-registration__topline {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 3px;
+    margin-bottom: 14px;
+  }
+
+  .member-registration__header {
+    align-items: flex-start;
+  }
+
+  .member-registration__required {
+    display: none;
+  }
+
+  .member-form-section {
+    padding: 14px 12px 15px;
+  }
+
+  .member-form-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .member-registration__actions {
+    position: sticky;
+    bottom: 0;
+    z-index: 2;
+    margin: 0;
+    padding: 10px 12px;
+    background: rgba(237, 244, 255, .96);
+  }
+}
