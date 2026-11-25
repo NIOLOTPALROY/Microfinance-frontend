@@ -3,13 +3,13 @@ import axios from 'axios'
 export const AUTH_SESSION_EXPIRED_EVENT = 'doortodoor:auth-session-expired'
 
 const endpointsWithoutSessionExpirySignal = [
-  '/api/auth/login',
-  '/api/auth/me',
-  '/api/auth/forgot-password',
+  '/auth/login',
+  '/auth/me',
+  '/auth/forgot-password',
 ]
 
 const apiClient = axios.create({
-  baseURL: import.meta.env.VITE_API_BASE_URL,
+  baseURL: import.meta.env.VITE_API_BASE_URL || undefined,
   withCredentials: true,
   timeout: 15_000,
   headers: { 'Content-Type': 'application/json' },

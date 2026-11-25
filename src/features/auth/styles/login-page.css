@@ -455,61 +455,6 @@
   color: #39483a;
 }
 
-.remember-option {
-  position: relative;
-  display: flex;
-  width: fit-content;
-  align-items: center;
-  gap: 9px;
-  margin-top: 19px;
-  color: #687269;
-  cursor: pointer;
-  font-size: 11px;
-}
-
-.remember-option input {
-  position: absolute;
-  width: 17px;
-  height: 17px;
-  margin: 0;
-  opacity: 0;
-}
-
-.custom-checkbox {
-  display: grid;
-  width: 16px;
-  height: 16px;
-  place-items: center;
-  border: 1px solid #d5dbd2;
-  border-radius: 4px;
-  background: #fff;
-  transition: background 150ms ease, border-color 150ms ease;
-}
-
-.custom-checkbox::after {
-  width: 7px;
-  height: 4px;
-  border-bottom: 1.5px solid #28351b;
-  border-left: 1.5px solid #28351b;
-  content: '';
-  opacity: 0;
-  transform: rotate(-45deg) translate(1px, -1px);
-}
-
-.remember-option input:checked + .custom-checkbox {
-  border-color: #a8cc69;
-  background: #c9f36a;
-}
-
-.remember-option input:checked + .custom-checkbox::after {
-  opacity: 1;
-}
-
-.remember-option input:focus-visible + .custom-checkbox {
-  outline: 3px solid rgba(156, 190, 99, 0.3);
-  outline-offset: 2px;
-}
-
 .submit-button {
   display: flex;
   width: 100%;
@@ -892,10 +837,6 @@ a:focus-visible {
 
   .password-label {
     margin-top: 17px;
-  }
-
-  .remember-option {
-    margin-top: 16px;
   }
 
   .submit-button {

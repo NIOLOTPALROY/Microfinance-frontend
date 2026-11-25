@@ -19,35 +19,34 @@ function SignInForm() {
   async function handleLogin(event: FormEvent<HTMLFormElement>) {
     event.preventDefault()
     const formData = new FormData(event.currentTarget)
-    const identifier = String(formData.get('identifier') ?? '').trim()
+    const email = String(formData.get('email') ?? '').trim()
     const password = String(formData.get('password') ?? '')
-    const rememberMe = formData.get('rememberMe') === 'on'
     clearError()
     setValidationError('')
     setFeedback('')
 
-    if (!identifier) {
-      setValidationError('Enter your work email or mobile number.')
+    if (!email) {
+      setValidationError('Enter your work email.')
       return
     }
 
-    await login({ identifier, password, rememberMe })
+    await login({ email, password })
   }
 
   async function handleForgotPassword(event: FormEvent<HTMLFormElement>) {
     event.preventDefault()
     const formData = new FormData(event.currentTarget)
-    const identifier = String(formData.get('identifier') ?? '').trim()
+    const email = String(formData.get('email') ?? '').trim()
     clearError()
     setValidationError('')
     setFeedback('')
 
-    if (!identifier) {
-      setValidationError('Enter your work email or mobile number.')
+    if (!email) {
+      setValidationError('Enter your work email.')
       return
     }
 
-    const sent = await forgotPassword({ identifier })
+    const sent = await forgotPassword({ email })
     if (sent) {
       setFeedback('If an account matches, recovery instructions will be sent using the contact details on file.')
     }
@@ -58,21 +57,21 @@ function SignInForm() {
       <div className="form-heading">
         <span className="form-heading__tag">{mode === 'login' ? 'YOUR WORKSPACE AWAITS' : 'ACCOUNT RECOVERY'}</span>
         <h2>{mode === 'login' ? <>Welcome back<span>.</span></> : <>Reset access<span>.</span></>}</h2>
-        <p>{mode === 'login' ? 'Sign in to pick up right where you left off.' : 'Enter your work email or mobile number to request recovery instructions.'}</p>
+        <p>{mode === 'login' ? 'Sign in to pick up right where you left off.' : 'Enter your work email to request recovery instructions.'}</p>
       </div>
 
       {mode === 'login' ? (
         <>
           <form className="login-form" onSubmit={handleLogin} aria-busy={isAuthenticating}>
-            <label className="field-label" htmlFor="identifier">Work email or mobile number</label>
+            <label className="field-label" htmlFor="email">Work email</label>
             <div className="input-wrap">
               <Mail className="input-icon" size={18} aria-hidden="true" />
               <input
-                id="identifier"
-                name="identifier"
-                type="text"
-                placeholder="you@company.com or mobile number"
-                autoComplete="username"
+                id="email"
+                name="email"
+                type="email"
+                placeholder="you@company.com"
+                autoComplete="email"
                 required
                 disabled={isAuthenticating}
               />
@@ -115,12 +114,6 @@ function SignInForm() {
               </button>
             </div>
 
-            <label className="remember-option">
-              <input type="checkbox" name="rememberMe" disabled={isAuthenticating} />
-              <span className="custom-checkbox" aria-hidden="true" />
-              <span>Keep me signed in</span>
-            </label>
-
             <button className="submit-button" type="submit" disabled={isAuthenticating}>
               <span>{isAuthenticating ? 'Signing in…' : 'Sign in to workspace'}</span>
               {isAuthenticating ? <LoaderCircle className="auth-spinner" size={18} aria-hidden="true" /> : <ArrowRight size={18} aria-hidden="true" />}
@@ -139,15 +132,15 @@ function SignInForm() {
         </>
       ) : (
         <form className="login-form auth-recovery-form" onSubmit={handleForgotPassword} aria-busy={isSendingPasswordReset}>
-          <label className="field-label" htmlFor="recovery-identifier">Work email or mobile number</label>
+          <label className="field-label" htmlFor="recovery-email">Work email</label>
           <div className="input-wrap">
             <Mail className="input-icon" size={18} aria-hidden="true" />
             <input
-              id="recovery-identifier"
-              name="identifier"
-              type="text"
-              autoComplete="username"
-              placeholder="you@company.com or mobile number"
+              id="recovery-email"
+              name="email"
+              type="email"
+              autoComplete="email"
+              placeholder="you@company.com"
               required
               disabled={isSendingPasswordReset}
             />

@@ -1,6 +1,6 @@
 # DoorToDoor MicroFoundation Dashboard
 
-The DoorToDoor admin UI is a React, TypeScript, and Vite application. The authentication frontend is prepared for a proposed cookie-based API contract, but no backend endpoint has been confirmed or connected.
+The DoorToDoor admin UI is a React, TypeScript, and Vite application. Sign-in, session restoration, and sign-out use the server's cookie-based authentication API.
 
 ## Development
 
@@ -50,7 +50,7 @@ src/
   main.tsx
 ```
 
-Each feature owns its pages, components, styles, and data. `app/App.tsx` composes the auth-protected dashboard flow, while `main.tsx` mounts the app. `AuthProvider` restores the session and `ProtectedRoute` provides generic role, permission, and branch checks. Auth API endpoint and response proposals requiring backend approval are documented in [AUTH_API_DOCUMENTATION.md](./AUTH_API_DOCUMENTATION.md). Set `VITE_API_BASE_URL` for the backend origin; auth requests use secure-cookie credentials and do not persist tokens in browser storage.
+Each feature owns its pages, components, styles, and data. `app/App.tsx` composes the auth-protected dashboard flow, while `main.tsx` mounts the app. `AuthProvider` restores the session and `ProtectedRoute` provides generic role, permission, and branch checks. See [AUTH_API_DOCUMENTATION.md](./AUTH_API_DOCUMENTATION.md) for the API contract. In development, Vite proxies auth requests to `http://127.0.0.1:3001`; set `VITE_API_BASE_URL` when connecting to a separately deployed backend.
 
 ## Members demo
 
@@ -58,4 +58,4 @@ The Members menu includes member registration and a searchable directory with pr
 
 ## Authentication integration status
 
-The login UI supports email/mobile, password visibility, remember-me, loading and error feedback, and a password-recovery request. It will not authenticate until the backend API is implemented and its proposed contract is approved.
+The login UI supports email, password visibility, loading and error feedback. Password recovery and token refresh are not yet implemented by the server.
