@@ -9,6 +9,18 @@ npm install
 npm run dev
 ```
 
+Vite uses `.env.development` with `http://localhost:3001` when running
+`npm run dev`. To run the local client against the production API instead, use:
+
+```sh
+npm run dev -- --mode production
+```
+
+This loads `.env.production`, which points to `https://micro.ironcloude.co.in`.
+`npm run build` also uses `.env.production` automatically. The production API
+must have HTTPS enabled before production mode can authenticate. These
+`VITE_` values are public client configuration; do not put secrets in them.
+
 ## Validation
 
 ```sh
@@ -50,7 +62,7 @@ src/
   main.tsx
 ```
 
-Each feature owns its pages, components, styles, and data. `app/App.tsx` composes the auth-protected dashboard flow, while `main.tsx` mounts the app. `AuthProvider` restores the session and `ProtectedRoute` provides generic role, permission, and branch checks. See [AUTH_API_DOCUMENTATION.md](./AUTH_API_DOCUMENTATION.md) for the API contract. In development, Vite proxies auth requests to `http://127.0.0.1:3001`; set `VITE_API_BASE_URL` when connecting to a separately deployed backend.
+Each feature owns its pages, components, styles, and data. `app/App.tsx` composes the auth-protected dashboard flow, while `main.tsx` mounts the app. `AuthProvider` restores the session and `ProtectedRoute` provides generic role, permission, and branch checks. See [AUTH_API_DOCUMENTATION.md](./AUTH_API_DOCUMENTATION.md) for the API contract. The API base URL comes from `VITE_API_BASE_URL` in the env file selected by Vite's mode.
 
 ## Members demo
 
