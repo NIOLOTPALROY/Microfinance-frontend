@@ -4,15 +4,15 @@ The client uses the server's cookie-based session endpoints:
 
 | Purpose | Method and path |
 | --- | --- |
-| Sign in | `POST /auth/login` |
-| Current session | `GET /auth/me` |
-| Sign out | `POST /auth/logout` |
+| Sign in | `POST /api/auth/login` |
+| Current session | `GET /api/auth/me` |
+| Sign out | `POST /api/auth/logout` |
 
-During local development, Vite proxies `/auth` to `http://127.0.0.1:3001`. Set
-`VITE_API_BASE_URL` to the backend origin when the client and server are
-deployed separately. Requests include credentials; the browser handles the
-HttpOnly session cookie, and the client never stores credentials or tokens in
-browser storage.
+During local development, Vite proxies `/api` to `http://127.0.0.1:3001`.
+`VITE_API_BASE_URL` is the backend origin; the client adds `/api` to it
+automatically. Requests include credentials; the browser handles the HttpOnly
+session cookie, and the client never stores credentials or tokens in browser
+storage.
 
 ## Sign-in
 
