@@ -8,8 +8,15 @@ const endpointsWithoutSessionExpirySignal = [
   '/auth/forgot-password',
 ]
 
+const configuredApiBaseUrl = import.meta.env.VITE_API_BASE_URL?.replace(/\/+$/, '')
+const apiBaseUrl = configuredApiBaseUrl
+  ? configuredApiBaseUrl.endsWith('/api')
+    ? configuredApiBaseUrl
+    : `${configuredApiBaseUrl}/api`
+  : '/api'
+
 const apiClient = axios.create({
-  baseURL: import.meta.env.VITE_API_BASE_URL || undefined,
+  baseURL: apiBaseUrl,
   withCredentials: true,
   timeout: 15_000,
   headers: { 'Content-Type': 'application/json' },

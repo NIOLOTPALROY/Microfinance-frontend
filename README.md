@@ -19,7 +19,9 @@ npm run dev -- --mode production
 This loads `.env.production`, which points to `https://micro.ironcloude.co.in`.
 `npm run build` also uses `.env.production` automatically. The production API
 must have HTTPS enabled before production mode can authenticate. These
-`VITE_` values are public client configuration; do not put secrets in them.
+`VITE_API_BASE_URL` is the API origin; the client adds the required `/api`
+prefix to every API request. `VITE_` values are public client configuration;
+do not put secrets in them.
 
 ## Validation
 
